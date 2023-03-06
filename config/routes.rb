@@ -1,10 +1,22 @@
 Rails.application.routes.draw do
+  # devise_for :users, path: '', path_names: {
+  #   sign_in: 'login',``
+  #   sign_out: 'logout',
+  #   registration: 'signup'
+  # },
+  # controllers: {
+  #   sessions: 'users/sessions',
+  #   registrations: 'user/registrations'
+  # }
+  
   namespace :api do
     namespace :v1 do
       get '/posts', to: 'posts#index'
-      post 'posts/create'
+      get 'posts/new', to: 'posts#new'
+      post 'posts/create', to: 'posts#create'
       get '/posts/:id', to: 'posts#show'
-      delete '/destroy/:id', to: 'posts#destroy'
+      put '/posts/:id/edit', to: 'posts#update'
+      delete '/posts/:id', to: 'posts#destroy'
     end
   end
   #get '/*path' => 'homepage#index'

@@ -37,7 +37,7 @@ module ReactonrailsBlogApp
     config.middleware.insert_before ActionDispatch::Static, Rack::Cors do
       allow do
         origins '*'
-        resource '*', headers: :any, methods: [:get, :post, :options]
+        resource '*', headers: :any, methods: [:get, :post, :options, :delete]
       end
     end
 
@@ -46,10 +46,11 @@ module ReactonrailsBlogApp
     config.middleware.insert_before ActionDispatch::Static, Rack::Cors do
       allow do
         origins '*'
-        resource '*', headers: :any, methods: [:get, :post, :options]
+        resource '*', headers: :any, methods: [:get, :post, :options, :delete]
       end
     end
 
+    config.action_controller.forgery_protection_origin_check = false
 
   end
 end
