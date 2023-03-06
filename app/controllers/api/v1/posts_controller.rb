@@ -1,6 +1,5 @@
 class Api::V1::PostsController < ApplicationController
 
-
   def index
     @posts = Post.all
     render json: @posts
@@ -12,7 +11,7 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def create
-    @post = Event.create!(post_params)
+    @post = Post.create!(post_params)
     if @post
       render json: @post 
     else
@@ -21,16 +20,16 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def update
-    @post = Event.find(params[:id])
+    @post = Post.find(params[:id])
     if @post.update(post_params)
-      render json: { message: 'Post updated!' }
-    else
-      render json: @post.errors
-    end
+     render json: { post: @post }
+   else
+    render json: @post.errors
+   end
   end
 
   def destroy
-    @post = Event.find(params[:id])
+    @post = Post.find(params[:id])
     @post&.destroy
     render json: { message: 'Post deleted!' }
   end
@@ -38,7 +37,7 @@ class Api::V1::PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:event).permit(:title, :body)
+    params.require(:post).permit(:title, :body)
   end
 
   def set_post
