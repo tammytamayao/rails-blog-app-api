@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   #   registrations: 'user/registrations'
   # }
   
+
+  devise_for :users
+
   namespace :api do
     namespace :v1 do
       get '/posts', to: 'posts#index'
