@@ -49,9 +49,6 @@ gem "bootsnap", require: false
 # to fix CORS
 gem 'rack-cors'
 
-# for authentication and log-in
-gem 'devise', '~> 4.9'
-
 # for jsonapi-serializer
 gem 'jsonapi-serializer', '~> 2.2'
 
