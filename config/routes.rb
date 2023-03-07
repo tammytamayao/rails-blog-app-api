@@ -21,6 +21,10 @@ Rails.application.routes.draw do
       delete '/posts/:id', to: 'posts#destroy'
 
       
+      get '/users', to: 'users#index'
+      post 'users/create', to: 'users#create'
+
+      
     end
   end
   #get '/*path' => 'homepage#index'
