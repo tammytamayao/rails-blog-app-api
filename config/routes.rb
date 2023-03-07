@@ -10,7 +10,6 @@ Rails.application.routes.draw do
   # }
   
 
-  devise_for :users
 
   namespace :api do
     namespace :v1 do
@@ -20,6 +19,12 @@ Rails.application.routes.draw do
       get '/posts/:id', to: 'posts#show'
       put '/posts/edit/:id', to: 'posts#update'
       delete '/posts/:id', to: 'posts#destroy'
+
+      
+      get '/users', to: 'users#index'
+      post 'users/create', to: 'users#create'
+
+      
     end
   end
   #get '/*path' => 'homepage#index'
@@ -27,5 +32,12 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  root 'api/v1/posts#index'
+  #root 'api/v1/posts#index'
+  
+  
+  post "/sign_up", to: "users#create"
+  get "/sign_up", to: "users#new"
+  root "users#new"
+
+  resources :confirmations, only: [:create, :edit, :new], param: :confirmation_token
 end
