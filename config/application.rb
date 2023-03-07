@@ -20,25 +20,6 @@ module BlogAppApi
     # config.eager_load_paths << Rails.root.join("extras")
 
     # Don't generate system test files.
-    config.generators.system_tests = nil
-
-    config.middleware.insert_before ActionDispatch::Static, Rack::Cors do
-      allow do
-        origins '*'
-        resource '*', headers: :any, methods: [:get, :post, :options, :delete, :put]
-      end
-    end
-
-    # For Rails 3/4 Applications
-
-    config.middleware.insert_before ActionDispatch::Static, Rack::Cors do
-      allow do
-        origins '*'
-        resource '*', headers: :any, methods: [:get, :post, :options, :delete, :put]
-      end
-    end
-
-    config.action_controller.forgery_protection_origin_check = false
 
   end
 end
