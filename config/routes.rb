@@ -19,6 +19,8 @@ Rails.application.routes.draw do
       get '/posts/:id', to: 'posts#show'
       put '/posts/edit/:id', to: 'posts#update'
       delete '/posts/:id', to: 'posts#destroy'
+
+      
     end
   end
   #get '/*path' => 'homepage#index'
@@ -26,5 +28,12 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  root 'api/v1/posts#index'
+  #root 'api/v1/posts#index'
+  
+  
+  post "/sign_up", to: "users#create"
+  get "/sign_up", to: "users#new"
+  root "users#new"
+
+  resources :confirmations, only: [:create, :edit, :new], param: :confirmation_token
 end
