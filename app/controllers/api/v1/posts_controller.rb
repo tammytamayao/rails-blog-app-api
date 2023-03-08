@@ -1,13 +1,12 @@
 class Api::V1::PostsController < ApplicationController
 
-  before_action :set_post, only: [:show, :update, :destroy]
-
   def index
     @posts = Post.all
     render json: @posts
   end
 
   def show
+    @post = Post.find(params[:id])
     render json: @post
   end
 
@@ -21,6 +20,7 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def update
+    @post = Post.find(params[:id])
     if @post.update(post_params)
      render json: { post: @post }
    else
@@ -29,6 +29,7 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def destroy
+    @post = Post.find(params[:id])
     @post&.destroy
     render json: { message: 'Post deleted!' }
   end
