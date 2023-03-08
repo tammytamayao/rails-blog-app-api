@@ -49,10 +49,11 @@ gem "bootsnap", require: false
 # to fix CORS
 gem 'rack-cors'
 
+# for authentication and log-in
+gem 'devise', '~> 4.9'
+
 # for jsonapi-serializer
 gem 'jsonapi-serializer', '~> 2.2'
-
-gem 'bcrypt', '~> 3.1.7'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
