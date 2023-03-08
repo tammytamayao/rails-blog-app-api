@@ -21,8 +21,9 @@ Rails.application.routes.draw do
       delete '/posts/:id', to: 'posts#destroy'
 
       
-      get '/users', to: 'users#index'
-      post 'users/create', to: 'users#create'
+      #get '/users', to: 'users#index'
+      post 'users/register', to: 'users#register'
+      post 'users/login', to: 'users#login'
 
       
     end

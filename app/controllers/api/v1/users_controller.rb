@@ -1,12 +1,12 @@
 
 
 class Api::V1::UsersController < ApplicationController
-    def index
-        @users = User.all
-        render json: @users
-    end
+    #def index
+    #    @users = User.all
+    #    render json: @users
+    #end
 
-    def create
+    def register
         if params[:password].length() < 8
             render :json => {:response => "password must atleast be 8 characters"}
         elsif params[:password] != params[:password_confirmation]
@@ -14,7 +14,7 @@ class Api::V1::UsersController < ApplicationController
         elsif User.exists?(email: params[:email])
             render :json => {:response => "email already taken"}
         else 
-            @users = User.create(email: params[:email], password_digest: BCrypt::Password.create(params[:email]))
+            @users = User.create(email: params[:email], password_digest: BCrypt::Password.create(params[:password]))
             if @users
                 
                 render :json => {:response => "registration successful"}
@@ -26,6 +26,25 @@ class Api::V1::UsersController < ApplicationController
             end
             
         end
+    end
+
+    
+    def login
+
+        ca = User.find_by_email(params[:email])
+        #cb = User.find_by_password_digest('')
+        #logger.info("Logs" + ca.password_digest)
+        #if User.where(:id => (ca.id & cb.id))
+
+        
+
+        if BCrypt::Password.new(ca.password_digest) === BCrypt::Engine.hash_secret(params[:password], ca.password_digest)  
+            render :json => {:response => "authenticated" }
+            
+        else 
+            render :json => {:response => "log in failed"}
+        end
+        
     end
 
 
