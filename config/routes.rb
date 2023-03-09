@@ -33,12 +33,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  #root 'api/v1/posts#index'
-  
-  
-  post "/sign_up", to: "users#create"
-  get "/sign_up", to: "users#new"
-  root "users#new"
-
-  resources :confirmations, only: [:create, :edit, :new], param: :confirmation_token
+  root 'api/v1/posts#index'
 end
