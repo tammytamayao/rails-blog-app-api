@@ -18,7 +18,7 @@ class Api::V1::UsersController < ApplicationController
             random_token = SecureRandom.urlsafe_base64(nil, false)
             token_exp = DateTime.now.advance(minutes: 2)    
             
-            body = "Verify your account by clicking on this link " + ENV["URL_REACT"] + "verify?token="+random_token+" before " + token_exp.strftime("%d/%B/%Y %I:%M%p")
+            body = "Verify your account by clicking on this link " + ENV["URL_REACT"] + "verify/"+random_token+" before " + token_exp.strftime("%d/%B/%Y %I:%M%p")
             @users = User.create(email: params[:email], password_digest: BCrypt::Password.create(params[:password]), token_expiration: token_exp ,token: random_token)
             if @users
                 render :json => {:response => "registration successful"}
@@ -55,6 +55,27 @@ class Api::V1::UsersController < ApplicationController
             render :json => {:response => "log in failed"}
         end
         
+    end
+
+
+    
+    def activation
+        ca = User.find_by_token(params[:token])
+        
+        token_exp = ca.token_expiration
+        time_now = DateTime.now
+        if token_exp >= time_now
+            #render :json => {:response => "email verified"}
+            @userUpdate = User.find_by_token(params[:token])
+            if @userUpdate.update(confirmed_at: time_now)
+                render :json => {:response => "email verified"}
+            else
+                render json: @userUpdate.errors
+            end
+        else
+            render :json => {:response => "token expired"}
+        end
+
     end
 
 

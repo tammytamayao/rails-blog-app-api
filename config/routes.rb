@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       #get '/users', to: 'users#index'
       post 'users/register', to: 'users#register'
       post 'users/login', to: 'users#login'
+      get '/users/activation/:token', to: 'users#activation'
 
       
     end
