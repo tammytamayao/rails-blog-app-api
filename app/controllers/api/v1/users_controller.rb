@@ -39,8 +39,12 @@ class Api::V1::UsersController < ApplicationController
         
 
         if BCrypt::Password.new(ca.password_digest) === BCrypt::Engine.hash_secret(params[:password], ca.password_digest)  
-            render :json => {:response => "authenticated" }
-            
+            #render :json => {:response => "authenticated" }
+            if ca.confirmed_at === nil
+                render :json => {:response => "email confirmation required" }
+            else
+                render :json => {:response => "authenticated" }
+            end
         else 
             render :json => {:response => "log in failed"}
         end
