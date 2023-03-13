@@ -16,7 +16,7 @@ class Api::V1::UsersController < ApplicationController
         else 
             
             random_token = SecureRandom.urlsafe_base64(nil, false)
-            token_exp = DateTime.now.advance(minutes: 2)    
+            token_exp = DateTime.now.advance(minutes: 120)    
             
             body = "Verify your account by clicking on this link " + ENV["URL_REACT"] + "verify/"+random_token+" before " + token_exp.strftime("%d/%B/%Y %I:%M%p")
             @users = User.create(email: params[:email], password_digest: BCrypt::Password.create(params[:password]), token_expiration: token_exp ,token: random_token)
