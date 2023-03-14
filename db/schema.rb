@@ -31,7 +31,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_14_014125) do
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "likes"
   end
 
   create_table "users", force: :cascade do |t|
