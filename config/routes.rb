@@ -26,6 +26,7 @@ Rails.application.routes.draw do
       post 'users/login', to: 'users#login'
       get '/users/activation/:token', to: 'users#activation'
       post '/users/getuserdata/', to: 'users#getuserdata'
+      get 'users/getsessionid', to: 'users#getsessionid'
 
       
     end

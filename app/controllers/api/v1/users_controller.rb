@@ -7,7 +7,10 @@ class Api::V1::UsersController < ApplicationController
     #end
 
     def register
-        if params[:password].length() < 8
+        
+        if params[:first_name].length() == 0 || params[:middle_name].length() == 0 || params[:last_name].length() == 0
+            render :json => {:response => "complete the required fields"}
+        elsif params[:password].length() < 8
             render :json => {:response => "password must atleast be 8 characters"}
         elsif params[:password] != params[:password_confirmation]
             render :json => {:response => "password didn't match"}
@@ -19,7 +22,7 @@ class Api::V1::UsersController < ApplicationController
             token_exp = DateTime.now.advance(minutes: 120)    
             
             body = "Verify your account by clicking on this link " + ENV["URL_REACT"] + "verify/"+random_token+" before " + token_exp.strftime("%d/%B/%Y %I:%M%p")
-            @users = User.create(email: params[:email], password_digest: BCrypt::Password.create(params[:password]), token_expiration: token_exp ,token: random_token)
+            @users = User.create(email: params[:email], password_digest: BCrypt::Password.create(params[:password]), token_expiration: token_exp ,token: random_token, first_name: params[:first_name], middle_name: params[:middle_name], last_name: params[:last_name])
             if @users
                 render :json => {:response => "registration successful"}
                 ActionMailer::Base.mail(from: "Rails Blog App", to: params[:email], subject: "Account Verification", body: body).deliver
@@ -112,8 +115,17 @@ class Api::V1::UsersController < ApplicationController
         
         user_id = ca.id
         user_created = ca.created_at
+        first_name = ca.first_name
+        middle_name = ca.middle_name
+        last_name = ca.last_name
+        session[:current_user_id] = ca.id
         
-        render :json => {:user_id => user_id, :user_created => user_created }
+        render :json => {:user_id => user_id, :user_created => user_created, :first_name => first_name, :middle_name => middle_name, :last_name => last_name }
+    end
+
+    
+    def getsessionid
+        render :json => {:session_id => session[:current_user_id]}
     end
 
 
