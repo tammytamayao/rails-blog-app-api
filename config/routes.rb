@@ -15,6 +15,9 @@ Rails.application.routes.draw do
         put '/posts/:post_id/comments/:id/edit', to: 'comments#update'
         delete '/posts/:post_id/comments/:id', to: 'comments#destroy'
 
+        post '/posts/:post_id/likers/create', to: 'likers#create'
+        get '/posts/:post_id/likers/show', to: 'likers#show'
+
     end
   end
 
