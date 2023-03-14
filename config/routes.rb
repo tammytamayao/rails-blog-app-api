@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   #   registrations: 'user/registrations'
   # }
   
+
+
   namespace :api do
     namespace :v1 do
       get '/posts', to: 'posts#index'
@@ -17,6 +19,15 @@ Rails.application.routes.draw do
       get '/posts/:id', to: 'posts#show'
       put '/posts/edit/:id', to: 'posts#update'
       delete '/posts/:id', to: 'posts#destroy'
+
+      
+      #get '/users', to: 'users#index'
+      post 'users/register', to: 'users#register'
+      post 'users/login', to: 'users#login'
+      get '/users/activation/:token', to: 'users#activation'
+      post '/users/getuserdata/', to: 'users#getuserdata'
+
+      
     end
   end
   #get '/*path' => 'homepage#index'
@@ -24,4 +35,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  root 'api/v1/posts#index'
 end
